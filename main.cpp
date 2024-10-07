@@ -1,8 +1,7 @@
 #include <cstdio>
 #include <cstdlib>
-#include <assert.h>
+#include <cassert>
 #include "TextureConverter.h"
-#include <comdef.h>
 enum Argument {
 	kApplicationPath, //アプリケーションのパス
 	kFilePath,		  //渡されたファイルのパス
@@ -10,7 +9,6 @@ enum Argument {
 	NumArgument
 };
 int main(int argc, char* argv[]) {
-	CoInitializeEx(0, COINIT_MULTITHREADED);
 	for (int i = 0; i < argc; i++) {
 		printf(argv[i]);
 
