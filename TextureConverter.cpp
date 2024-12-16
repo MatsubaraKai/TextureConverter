@@ -1,4 +1,4 @@
-#include "TextureConverter.h"
+ï»¿#include "TextureConverter.h"
 #include <Windows.h>
 
 TextureConverter::TextureConverter()
@@ -21,14 +21,14 @@ void TextureConverter::ConverterTextureWICToDDS(const std::string& filePath)
 void TextureConverter::LoadWICTextureFromFile(const std::string& filePath)
 {
 
-	// 1.ƒtƒ@ƒCƒ‹ƒpƒX‚ğƒƒCƒh•¶š—ñ‚É•ÏŠ·
+	// 1.ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’ãƒ¯ã‚¤ãƒ‰æ–‡å­—åˆ—ã«å¤‰æ›
 	std::wstring wFilePath = ConvertString(filePath);
 
-	// 2.ƒeƒNƒXƒ`ƒƒ‚ğ“Ç‚İ‚Ş
+	// 2.ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’èª­ã¿è¾¼ã‚€
 	HRESULT result = LoadFromWICFile(wFilePath.c_str(), DirectX::WIC_FLAGS_NONE, &metadata_, scratchImage_);
 	assert(SUCCEEDED(result));
 
-	// ƒtƒHƒ‹ƒ_ƒpƒX‚Æƒtƒ@ƒCƒ‹–¼‚ğ•ª—£‚·‚é
+	// ãƒ•ã‚©ãƒ«ãƒ€ãƒ‘ã‚¹ã¨ãƒ•ã‚¡ã‚¤ãƒ«åã‚’åˆ†é›¢ã™ã‚‹
 	SeparateFilePath(wFilePath);
 
 }
@@ -39,13 +39,13 @@ void TextureConverter::SeparateFilePath(const std::wstring& filePath)
 	size_t pos1;
 	std::wstring excptExt;
 
-	// ‹æØ‚è•¶š'.'‚ªo‚Ä‚­‚éˆê”ÔÅŒã‚Ì•”•ª‚ğŒŸõ
+	// åŒºåˆ‡ã‚Šæ–‡å­—'.'ãŒå‡ºã¦ãã‚‹ä¸€ç•ªæœ€å¾Œã®éƒ¨åˆ†ã‚’æ¤œç´¢
 	pos1 = filePath.rfind('.');
-	// ŒŸõ‚ªƒqƒbƒg‚µ‚½‚ç
+	// æ¤œç´¢ãŒãƒ’ãƒƒãƒˆã—ãŸã‚‰
 	if (pos1 != std::wstring::npos) {
-		// ‹æØ‚è•¶š‚ÌŒã‚ë‚ğƒtƒ@ƒCƒ‹Šg’£q‚Æ‚µ‚Ä•Û‘¶
+		// åŒºåˆ‡ã‚Šæ–‡å­—ã®å¾Œã‚ã‚’ãƒ•ã‚¡ã‚¤ãƒ«æ‹¡å¼µå­ã¨ã—ã¦ä¿å­˜
 		fileExt_ = filePath.substr(pos1 + 1, filePath.size() - pos1 - 1);
-		// ‹æØ‚è•¶š‚Ì‘O‚Ü‚Å‚ğ”²‚«o‚·
+		// åŒºåˆ‡ã‚Šæ–‡å­—ã®å‰ã¾ã§ã‚’æŠœãå‡ºã™
 		excptExt = filePath.substr(0, pos1);
 	}
 	else {
@@ -53,27 +53,27 @@ void TextureConverter::SeparateFilePath(const std::wstring& filePath)
 		excptExt = filePath;
 	}
 
-	// ‹æØ‚è•¶š '\\'‚ªo‚Ä‚­‚éˆê”ÔÅŒã‚Ì•”•ª‚ğŒŸõ
+	// åŒºåˆ‡ã‚Šæ–‡å­— '\\'ãŒå‡ºã¦ãã‚‹ä¸€ç•ªæœ€å¾Œã®éƒ¨åˆ†ã‚’æ¤œç´¢
 	pos1 = excptExt.rfind('\\');
 	if (pos1 != std::wstring::npos) {
-		// ‹æØ‚è•¶š‚Ì‘O‚Ü‚Å‚ğƒfƒBƒŒƒNƒgƒŠƒpƒX‚Æ‚µ‚Ä•Û‘¶
+		// åŒºåˆ‡ã‚Šæ–‡å­—ã®å‰ã¾ã§ã‚’ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãƒ‘ã‚¹ã¨ã—ã¦ä¿å­˜
 		directoryPath_ = excptExt.substr(0, pos1 + 1);
-		// ‹æØ‚è•¶š‚ÌŒã‚ë‚ğƒtƒ@ƒCƒ‹–¼‚Æ‚µ‚Ä•Û‘¶
+		// åŒºåˆ‡ã‚Šæ–‡å­—ã®å¾Œã‚ã‚’ãƒ•ã‚¡ã‚¤ãƒ«åã¨ã—ã¦ä¿å­˜
 		fileName_ = excptExt.substr(pos1 + 1, excptExt.size() - pos1 - 1);
 		return;
 	}
 
-	// ‹æØ‚è•¶š '/'‚ªo‚Ä‚­‚éˆê”ÔÅŒã‚Ì•”•ª‚ğŒŸõ
+	// åŒºåˆ‡ã‚Šæ–‡å­— '/'ãŒå‡ºã¦ãã‚‹ä¸€ç•ªæœ€å¾Œã®éƒ¨åˆ†ã‚’æ¤œç´¢
 	pos1 = excptExt.rfind('/');
 	if (pos1 != std::wstring::npos) {
-		// ‹æØ‚è•¶š‚Ì‘O‚Ü‚Å‚ğƒfƒBƒŒƒNƒgƒŠƒpƒX‚Æ‚µ‚Ä•Û‘¶
+		// åŒºåˆ‡ã‚Šæ–‡å­—ã®å‰ã¾ã§ã‚’ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãƒ‘ã‚¹ã¨ã—ã¦ä¿å­˜
 		directoryPath_ = excptExt.substr(0, pos1 + 1);
-		// ‹æØ‚è•¶š‚ÌŒã‚ë‚ğƒtƒ@ƒCƒ‹–¼‚Æ‚µ‚Ä•Û‘¶
+		// åŒºåˆ‡ã‚Šæ–‡å­—ã®å¾Œã‚ã‚’ãƒ•ã‚¡ã‚¤ãƒ«åã¨ã—ã¦ä¿å­˜
 		fileName_ = excptExt.substr(pos1 + 1, excptExt.size() - pos1 - 1);
 		return;
 	}
 
-	// ‹æØ‚è•¶š‚ª‚È‚¢‚Ì‚Åƒtƒ@ƒCƒ‹–¼‚Ì‚İ‚Æ‚µ‚Äˆµ‚¤
+	// åŒºåˆ‡ã‚Šæ–‡å­—ãŒãªã„ã®ã§ãƒ•ã‚¡ã‚¤ãƒ«åã®ã¿ã¨ã—ã¦æ‰±ã†
 	directoryPath_ = L"";
 	fileName_ = excptExt;
 
@@ -85,7 +85,7 @@ void TextureConverter::SaveDDSTextureToFile()
 	HRESULT result;
 
 	DirectX::ScratchImage mipChain;
-	// ƒ~ƒbƒvƒ}ƒbƒv¶¬
+	// ãƒŸãƒƒãƒ—ãƒãƒƒãƒ—ç”Ÿæˆ
 	result = GenerateMipMaps(
 		scratchImage_.GetImages(),
 		scratchImage_.GetImageCount(),
@@ -93,12 +93,12 @@ void TextureConverter::SaveDDSTextureToFile()
 		DirectX::TEX_FILTER_DEFAULT, 0, mipChain);
 
 	if (SUCCEEDED(result)) {
-		// ƒCƒ[ƒW‚Æƒƒ^ƒf[ƒ^‚ğAƒ~ƒbƒvƒ}ƒbƒv”Å‚Å’u‚«Š·‚¦‚é
+		// ã‚¤ãƒ¡ãƒ¼ã‚¸ã¨ãƒ¡ã‚¿ãƒ‡ãƒ¼ã‚¿ã‚’ã€ãƒŸãƒƒãƒ—ãƒãƒƒãƒ—ç‰ˆã§ç½®ãæ›ãˆã‚‹
 		scratchImage_ = std::move(mipChain);
 		metadata_ = scratchImage_.GetMetadata();
 	}
 
-	// ˆ³kŒ`®‚É•ÏŠ·
+	// åœ§ç¸®å½¢å¼ã«å¤‰æ›
 	DirectX::ScratchImage converted;
 	result = Compress(
 		scratchImage_.GetImages(),
@@ -110,18 +110,18 @@ void TextureConverter::SaveDDSTextureToFile()
 		DirectX::TEX_COMPRESS_FLAGS::TEX_COMPRESS_PARALLEL,
 		1.0f, converted);
 	if (SUCCEEDED(result)) {
-		// ƒCƒ[ƒW‚Æƒƒ^ƒf[ƒ^‚ğAƒ~ƒbƒvƒ}ƒbƒv”Å‚Å’u‚«Š·‚¦‚é
+		// ã‚¤ãƒ¡ãƒ¼ã‚¸ã¨ãƒ¡ã‚¿ãƒ‡ãƒ¼ã‚¿ã‚’ã€ãƒŸãƒƒãƒ—ãƒãƒƒãƒ—ç‰ˆã§ç½®ãæ›ãˆã‚‹
 		scratchImage_ = std::move(converted);
 		metadata_ = scratchImage_.GetMetadata();
 	}
 
-	// “Ç‚İ‚ñ‚¾ƒeƒNƒXƒ`ƒƒ‚ğSRGB‚Æ‚µ‚Äˆµ‚¤
+	// èª­ã¿è¾¼ã‚“ã ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’SRGBã¨ã—ã¦æ‰±ã†
 	metadata_.format = DirectX::MakeSRGB(metadata_.format);
 
-	// o—Íƒtƒ@ƒCƒ‹–¼‚ğİ’è‚·‚é
+	// å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«åã‚’è¨­å®šã™ã‚‹
 	std::wstring filePath = directoryPath_ + fileName_ + L".dds";
 
-	// DDSƒtƒ@ƒCƒ‹‘‚«o‚µ
+	// DDSãƒ•ã‚¡ã‚¤ãƒ«æ›¸ãå‡ºã—
 	result = DirectX::SaveToDDSFile(
 		scratchImage_.GetImages(), scratchImage_.GetImageCount(),
 		metadata_, DirectX::DDS_FLAGS_NONE, filePath.c_str());

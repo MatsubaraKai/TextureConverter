@@ -1,33 +1,52 @@
-#include <cstdio>
+ï»¿#include <cstdio>
 #include <cstdlib>
 #include <cassert>
 #include <Windows.h>
 #include "TextureConverter.h"
-
-// ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ˆø”
-enum Argument {
-	kApplicationPath, // ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒpƒX
-	kFilePath, // “n‚³‚ê‚½ƒtƒ@ƒCƒ‹ƒpƒX
-	NumArgument
-};
+#include <iostream>
+#include <string>
+#include <filesystem>
 
 int main(int argc, char* argv[]) {
+    std::string filePath;
 
-	assert(argc >= NumArgument);
+    if (argc >= 2) {
+        // ãƒ‰ãƒ©ãƒƒã‚°ï¼†ãƒ‰ãƒ­ãƒƒãƒ—ã•ã‚ŒãŸå ´åˆ
+        filePath = argv[1];
+    }
+    else {
+        // æ‰‹å‹•å…¥åŠ›ã®å ´åˆ
+        std::cout << "Please enter the file path: ";
+        std::getline(std::cin, filePath);
+    }
 
-	// COMƒ‰ƒCƒuƒ‰ƒŠ‚Ì‰Šú‰»
-	HRESULT hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
-	assert(SUCCEEDED(hr));
+    // COMãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®åˆæœŸåŒ–
+    HRESULT hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+    if (FAILED(hr)) {
+        std::cerr << "Failed to initialize COM library.\n";
+        return -1;
+    }
 
-	// ƒeƒNƒXƒ`ƒƒƒRƒ“ƒo[ƒ^
-	TextureConverter converter;
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚³ãƒ³ãƒãƒ¼ã‚¿
+    TextureConverter converter;
 
-	// ƒeƒNƒXƒ`ƒƒ•ÏŠ·
-	converter.ConverterTextureWICToDDS(argv[kFilePath]);
+    // ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ãŒæ­£ã—ã„ã‹ç¢ºèª
+    if (filePath.empty()) {
+        std::cerr << "Error: File path is empty.\n";
+        return -1;
+    }
 
-	// COM ƒ‰ƒCƒuƒ‰ƒŠ‚ÌI—¹
-	CoUninitialize();
+    try {
+        // ãƒ†ã‚¯ã‚¹ãƒãƒ£å¤‰æ›
+        converter.ConverterTextureWICToDDS(filePath);
+        std::cout << "Conversion successful for: " << filePath << "\n";
+    }
+    catch (...) {
+        std::cerr << "Error: Failed to process file: " << filePath << "\n";
+    }
 
-	return 0;
+    // COMãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®çµ‚äº†
+    CoUninitialize();
 
+    return 0;
 }

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <string>
 #include "DirectXTex.h"
 class TextureConverter
@@ -7,64 +7,64 @@ class TextureConverter
 public:
 
 	/// <summary>
-	/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	/// </summary>
 	TextureConverter();
 
 	/// <summary>
-	/// ƒfƒXƒgƒ‰ƒNƒ^
+	/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	/// </summary>
 	~TextureConverter();
 
 	/// <summary>
-	/// ƒeƒNƒXƒ`ƒƒ‚ğWIC‚©‚çDDS‚É•ÏŠ·
+	/// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’WICã‹ã‚‰DDSã«å¤‰æ›
 	/// </summary>
-	/// <param name="filePath">ƒtƒ@ƒCƒ‹ƒpƒX</param>
+	/// <param name="filePath">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
 	void ConverterTextureWICToDDS(const std::string& filePath);
 
 private:
 
 	/// <summary>
-	/// ƒeƒNƒXƒ`ƒƒƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+	/// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
 	/// </summary>
 	/// <param name="filePath"></param>
 	void LoadWICTextureFromFile(const std::string& filePath);
 
 	/// <summary>
-	/// ƒtƒ@ƒCƒ‹ƒpƒX‚Æƒtƒ@ƒCƒ‹–¼‚ğ•ª‰ğ‚·‚é
+	/// ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã¨ãƒ•ã‚¡ã‚¤ãƒ«åã‚’åˆ†è§£ã™ã‚‹
 	/// </summary>
-	/// <param name="filePath">ƒtƒ@ƒCƒ‹ƒpƒX</param>
+	/// <param name="filePath">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
 	void SeparateFilePath(const std::wstring& filePath);
 
 	/// <summary>
-	/// DDSƒeƒNƒXƒ`ƒƒ‚Æ‚µ‚Äƒtƒ@ƒCƒ‹‘‚«o‚µ
+	/// DDSãƒ†ã‚¯ã‚¹ãƒãƒ£ã¨ã—ã¦ãƒ•ã‚¡ã‚¤ãƒ«æ›¸ãå‡ºã—
 	/// </summary>
 	void SaveDDSTextureToFile();
 
 private:
 
 	/// <summary>
-	/// ƒ}ƒ‹ƒ`ƒoƒCƒg•¶š—ñ‚ğƒƒCƒh•¶š—ñ‚É•ÏŠ·
+	/// ãƒãƒ«ãƒãƒã‚¤ãƒˆæ–‡å­—åˆ—ã‚’ãƒ¯ã‚¤ãƒ‰æ–‡å­—åˆ—ã«å¤‰æ›
 	/// </summary>
-	/// <param name="str">ƒ}ƒ‹ƒ`ƒoƒCƒg•¶š—ñ</param>
-	/// <returns>ƒƒCƒh•¶š—ñ</returns>
+	/// <param name="str">ãƒãƒ«ãƒãƒã‚¤ãƒˆæ–‡å­—åˆ—</param>
+	/// <returns>ãƒ¯ã‚¤ãƒ‰æ–‡å­—åˆ—</returns>
 	static std::wstring ConvertString(const std::string& str);
 
 private:
 
-	// ‰æ‘œ‚Ìî•ñ
+	// ç”»åƒã®æƒ…å ±
 	DirectX::TexMetadata metadata_;
 
-	// ‰æ‘œƒCƒ[ƒW‚ÌƒRƒ“ƒeƒi
+	// ç”»åƒã‚¤ãƒ¡ãƒ¼ã‚¸ã®ã‚³ãƒ³ãƒ†ãƒŠ
 	DirectX::ScratchImage scratchImage_;
 
-	// ƒfƒBƒŒƒNƒgƒŠƒpƒX
+	// ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãƒ‘ã‚¹
 	std::wstring directoryPath_;
 
-	// ƒtƒ@ƒCƒ‹–¼
+	// ãƒ•ã‚¡ã‚¤ãƒ«å
 	std::wstring fileName_;
 
-	// ƒtƒ@ƒCƒ‹Šg’£q
+	// ãƒ•ã‚¡ã‚¤ãƒ«æ‹¡å¼µå­
 	std::wstring fileExt_;
 
 };
